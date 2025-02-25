@@ -16,24 +16,26 @@ const Xmodal = ({ onClose }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { username, email, phone, dob } = formData;
-
+  
     if (!username || !email || !phone || !dob) {
       alert("All fields are required.");
       return;
     }
+  
+    if (!/^\d{10}$/.test(phone)) {
+      alert("Invalid phone number. Please enter a 10-digit phone number.");
+      return;
+    }
+  
     if (!email.includes("@")) {
       alert("Invalid email. Please check your email address.");
       return;
     }
-    if (!/^[0-9]{10}$/.test(phone)) {
-      alert("Invalid phone number. Please enter a 10-digit phone number.");
-      return;
-    }
+
     if (new Date(dob) > new Date()) {
       alert("Invalid date of birth. Date cannot be in the future.");
       return;
     }
-
     onClose();
   };
 
